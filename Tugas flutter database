@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+void main() => runApp(App());
+
+class App extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter penyimpanan data',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Rahyunisihole_6SIA10'),
+        ),
+        body: Perpustakaan(),
+      ),
+    );
+  }
+}
+
+class DataCustomer{
+  
+  String kodebuku;
+  String judulbuku;
+  String pengarang;
+  String penerbit;
+  
+  
+  DataPerpustakaan({ this.kodebuku, this.judulbuku, this.pengarang, this.penerbit});
+  
+}
+
+// class Perpustakaan
+class Perpustakaan extends StatefulWidget {
+  _MyappState createState() => _MyappState();
+}
+
+class _MyappState extends State<Perpustakaan> {
+  //deklarasi variabel
+  final txtkodebuku = TextEditingController();
+  final txtjudulbuku = TextEditingController();
+  final txtpengarang = TextEditingController();
+  final txtpenerbit = TextEditingController();
+
+  List<Widget> data = [];
+
+  onTambah() {
+    setState(() {
+      data.add(ListTile(
+        leading: Text(txtkodebuku.text),
+        title: Text(txtjudulbuku.text),
+        subtitle: Text(txtpengarang.text),
+        trailing: Text(txtpenerbit.text),
+      ));
+      txtkodebuku.clear();
+      txtjudulbuku.clear();
+      txtpengarang.clear();
+      txtpenerbit.clear();
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+           
+              TextField(
+                controller: txtkodebuku,
+                decoration: InputDecoration(hintText: 'Kode Buku'),
+              ),
+              TextField(
+                controller: txtjudulbuku,
+                decoration: InputDecoration(hintText: 'Judul Buku'),
+              ),
+              TextField(
+                controller: txtpengarang,
+                decoration: InputDecoration(hintText: 'Pengarang'),
+              ),
+               TextField(
+                controller: txtpenerbit,
+                decoration: InputDecoration(hintText: 'Penerbit'),
+              ),
+              Divider(height: 5.0),
+              ElevatedButton(child: Text("Tambah"), onPressed: onTambah),
+            ],
+          ),
+        ),
+        new Column(
+          children: data,
+        )
+      ],
+    );
+  }
+}
